@@ -54,6 +54,7 @@ const els = {
   packOptions: document.getElementById('pack-options'),
   priceNow: document.getElementById('price-now'),
   priceWas: document.getElementById('price-was'),
+  priceSave: document.getElementById('price-save'),
   qty: document.getElementById('qty'),
   qtyMinus: document.getElementById('qty-minus'),
   qtyPlus: document.getElementById('qty-plus'),
@@ -127,9 +128,16 @@ function renderColors() {
     .join('')
 }
 
+function activePack() {
+  return els.packOptions.querySelector('.pack.is-active')
+}
+
 function updatePriceUI() {
   els.priceNow.textContent = money(state.price)
   els.priceWas.textContent = money(state.compare)
+  const save = state.compare > state.price ? Math.round((1 - state.price / state.compare) * 100) : 0
+  const free = activePack()?.dataset.freeShip === '1'
+  els.priceSave.textContent = free ? `Save ${save}% · Free delivery` : `Save ${save}%`
 }
 
 function selectedColorNames() {
@@ -140,6 +148,7 @@ function selectedColorNames() {
 
 function currentLine() {
   const colors = selectedColorNames()
+  const freeShipping = activePack()?.dataset.freeShip === '1'
   return {
     id: `${PRODUCT.id}-pack${state.pack}-${[...state.favorites].sort().join('-') || 'all'}`,
     name: PRODUCT.name,
@@ -147,6 +156,7 @@ function currentLine() {
     packLabel: `${state.pack} set${state.pack > 1 ? 's' : ''} (${state.pack * PRODUCT.packSize} pens)`,
     unitPrice: state.price,
     qty: state.qty,
+    freeShipping,
     colors,
     colorsLabel: colors.length ? colors.join(', ') : 'Full 6-color set',
   }
@@ -228,7 +238,9 @@ function subtotalOf(items) {
   return items.reduce((sum, item) => sum + lineTotal(item), 0)
 }
 
-function shippingFor(subtotal) {
+function shippingFor(items) {
+  const subtotal = subtotalOf(items)
+  if (items.some((item) => item.freeShipping)) return 0
   return subtotal >= SHIPPING.freeOver ? 0 : SHIPPING.price
 }
 
@@ -255,7 +267,7 @@ function renderAreas() {
 function renderSummary() {
   const items = state.checkoutItems
   const sub = subtotalOf(items)
-  const ship = shippingFor(sub)
+  const ship = shippingFor(items)
   const area = selectedArea()
 
   els.summaryLines.innerHTML = items
@@ -276,10 +288,12 @@ function renderSummary() {
   els.sumTotal.textContent = money(sub + ship)
   els.shipPrice.textContent = ship === 0 ? 'Free' : money(ship)
   els.shipEta.textContent = `${area.eta} · ${area.label}`
-  els.shipHint.textContent =
-    ship === 0
+  const twoSet = items.some((item) => item.freeShipping)
+  els.shipHint.textContent = twoSet
+    ? 'Free delivery on the 2-set.'
+    : ship === 0
       ? `Free Express delivery on orders of ${money(SHIPPING.freeOver)} or more.`
-      : `Express is ${money(SHIPPING.price)}. Free on orders of ${money(SHIPPING.freeOver)} or more.`
+      : `Express is ${money(SHIPPING.price)}. The 2-set ships free, and orders of ${money(SHIPPING.freeOver)} or more ship free.`
 }
 
 function showShop() {
@@ -443,7 +457,7 @@ els.checkoutForm.addEventListener('submit', (event) => {
   }
 
   const subtotal = subtotalOf(state.checkoutItems)
-  const shipping = shippingFor(subtotal)
+  const shipping = shippingFor(state.checkoutItems)
   const order = {
     id: `PP-${Date.now().toString(36).toUpperCase()}`,
     items: state.checkoutItems,
