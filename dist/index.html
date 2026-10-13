@@ -26,8 +26,8 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-Cu2SnNRM.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-53bqSU6A.css">
+    <script type="module" crossorigin src="/assets/index-yItQ8OBB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BZkaw5FI.css">
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
@@ -44,28 +44,11 @@
         <a href="#faq">FAQ</a>
       </nav>
       <div class="header-actions">
-        <button type="button" class="cart-btn" id="cart-toggle" aria-label="Open cart">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
-            <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
-          </svg>
-          <span class="cart-count" id="cart-count">0</span>
-        </button>
         <a class="header-cta" href="#product">Order now</a>
       </div>
     </header>
 
     <main id="top">
-      <section class="strip" aria-label="Highlights">
-        <p>Heat-activated puff</p>
-        <p>6 neon colors</p>
-        <p>Safe for kids</p>
-        <p>Paper · glass · plastic</p>
-        <p>Order on WhatsApp</p>
-      </section>
-
       <section class="product" id="product">
         <div class="product-gallery">
           <div class="gallery-main" id="gallery-main">
@@ -81,26 +64,8 @@
                 playsinline
                 preload="metadata"
                 poster="/media/gallery-05.jpg"
-                src="/media/demo.mp4"
+                src="/media/puff-demo.mp4"
               ></video>
-              <iframe
-                id="yt-player"
-                title="Popcorn pens YouTube Short"
-                hidden
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                referrerpolicy="strict-origin-when-cross-origin"
-              ></iframe>
-              <a
-                class="yt-fallback"
-                id="yt-fallback"
-                href="https://www.youtube.com/shorts/VEbGwYbeCQc"
-                target="_blank"
-                rel="noopener noreferrer"
-                hidden
-              >
-                ▶ Watch on YouTube
-              </a>
             </div>
           </div>
           <div class="gallery-thumbs" id="gallery-thumbs" role="tablist" aria-label="Product photos and video"></div>
@@ -148,8 +113,7 @@
           </div>
 
           <div class="buy-actions">
-            <button type="button" class="btn btn-primary btn-wide" id="add-to-cart">Add to cart</button>
-            <button type="button" class="btn btn-buy btn-wide" id="buy-whatsapp">
+            <button type="button" class="btn btn-primary btn-wide" id="buy-whatsapp">
               Buy it now
             </button>
           </div>
@@ -157,20 +121,54 @@
         </div>
       </section>
 
+      <section class="perks" aria-label="Highlights">
+        <ul>
+          <li>
+            <span class="perk-icon perk-heat" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3-2 4-2 7a2 2 0 1 0 4 0c0-1 .5-2 1.2-2.8C16.6 9.2 18 11 18 13.5A6 6 0 1 1 6.2 12C7.4 8.6 10.2 7 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <strong>Heat-activated puff</strong>
+            <p>A hair dryer lifts flat ink into soft 3D art.</p>
+          </li>
+          <li>
+            <span class="perk-icon perk-colors" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="9" r="2.2" fill="currentColor"/><circle cx="14" cy="8" r="2.2" fill="currentColor" opacity=".7"/><circle cx="16.5" cy="13" r="2.2" fill="currentColor" opacity=".45"/><circle cx="10" cy="15" r="2.2" fill="currentColor" opacity=".85"/></svg>
+            </span>
+            <strong>6 neon colors</strong>
+            <p>Every set ships the full bright color box.</p>
+          </li>
+          <li>
+            <span class="perk-icon perk-kids" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M6 19c1.2-3 3.2-4.5 6-4.5S16.8 16 18 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <strong>Safe for kids</strong>
+            <p>A kids craft formula. Supervise the heat step.</p>
+          </li>
+          <li>
+            <span class="perk-icon perk-surfaces" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 20h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <strong>Paper, glass, plastic</strong>
+            <p>Cards, windows, and craft plastic all work.</p>
+          </li>
+          <li>
+            <span class="perk-icon perk-chat" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 16.5 4 20l3.8-1.2A8 8 0 1 0 6 16.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <strong>Order on WhatsApp</strong>
+            <p>Buy it now, then send the order in one tap.</p>
+          </li>
+        </ul>
+      </section>
+
       <section class="demo" id="demo">
         <div class="demo-copy">
           <h2>See the puff in action</h2>
           <p class="section-lead">
-            Product photo reel plus the YouTube Short demo of popcorn / puffy pens.
+            Watch the pens puff into 3D popcorn art.
           </p>
           <div class="demo-links">
             <a class="btn btn-primary" href="#product">Order this set</a>
-            <a
-              class="btn btn-ghost"
-              href="https://www.youtube.com/shorts/VEbGwYbeCQc"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Open YouTube Short</a>
           </div>
         </div>
         <div class="demo-videos">
@@ -186,14 +184,15 @@
             </video>
           </div>
           <div class="demo-frame demo-frame-yt">
-            <iframe
-              src="https://www.youtube.com/embed/VEbGwYbeCQc?rel=0"
-              title="POPCORN PENS or Puffy Pens for Magical Art"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
+            <video
+              controls
+              playsinline
+              preload="metadata"
+              poster="/media/gallery-05.jpg"
+              src="/media/puff-demo.mp4"
+            >
+              Your browser does not support video playback.
+            </video>
           </div>
         </div>
       </section>
@@ -251,7 +250,7 @@
         <h2>FAQ</h2>
         <details open>
           <summary>How do I order?</summary>
-          <p>Add a pack to your cart and choose Check out, or use Buy it now. The 2-set is $39.99 and includes free delivery. Other orders use Express shipping at $4, free from $50. Pay cash on delivery.</p>
+          <p>Choose a pack and tap Buy it now. The 2-set is $39.99 and includes free delivery. Other orders use Express shipping at $4, free from $50. Pay cash on delivery.</p>
         </details>
         <details>
           <summary>Do I need a microwave?</summary>
@@ -274,28 +273,17 @@
       <p class="fine">Inspired by wholesale listing 1601900552729 · Retail storefront for your customers</p>
     </footer>
 
-    <div class="cart-overlay" id="cart-overlay" hidden></div>
-    <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Shopping cart">
-      <div class="cart-head">
-        <h2>Your cart</h2>
-        <button type="button" class="icon-close" id="cart-close" aria-label="Close cart">×</button>
-      </div>
-      <div class="cart-items" id="cart-items"></div>
-      <div class="cart-empty" id="cart-empty">
-        <p>Your cart is empty.</p>
-        <a href="#product" class="btn btn-ghost" id="cart-shop">Shop pens</a>
-      </div>
-      <div class="cart-foot" id="cart-foot" hidden>
-        <div class="cart-total">
-          <span>Estimated total</span>
-          <strong id="cart-total">$0.00</strong>
-        </div>
-        <p class="cart-note">Shipping is calculated at checkout.</p>
-        <button type="button" class="btn btn-primary btn-wide" id="checkout-wa">
-          Check out
-        </button>
-      </div>
-    </aside>
+    <a
+      class="wa-float"
+      href="https://wa.me/96179460039"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+    >
+      <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 2.1 16.8L1 23l6.4-1.1A11 11 0 0 0 20.5 3.5Zm-8.5 17a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-3.8.6.6-3.7-.2-.3A9.1 9.1 0 1 1 12 20.5Zm5-6.8c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5.2-.3a.5.5 0 0 0 0-.5c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.5 4 15 15 0 0 0 1.5.6 3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3Z"/>
+      </svg>
+    </a>
 
     <section id="checkout" class="checkout" hidden>
       <div class="checkout-wrap">

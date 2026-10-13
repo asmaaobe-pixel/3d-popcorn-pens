@@ -21,18 +21,10 @@ const GALLERY = [
   { type: 'image', src: '/media/gallery-25.jpg', alt: 'Color variety shot' },
   {
     type: 'video',
-    src: '/media/demo.mp4',
+    src: '/media/puff-demo.mp4',
     thumb: '/media/gallery-05.jpg',
-    alt: 'Local demo reel',
-    label: '▶ DEMO',
-  },
-  {
-    type: 'youtube',
-    src: 'https://www.youtube.com/embed/VEbGwYbeCQc?rel=0&autoplay=1',
-    watch: 'https://www.youtube.com/shorts/VEbGwYbeCQc',
-    thumb: '/media/gallery-05.jpg',
-    alt: 'YouTube Short demo',
-    label: '▶ YT',
+    alt: 'Puff demo video',
+    label: '▶ VIDEO',
   },
 ]
 
@@ -42,10 +34,8 @@ const state = {
   compare: PRODUCT.compareAt,
   qty: 1,
   favorites: new Set(),
-  cart: loadCart(),
   galleryIndex: 0,
   checkoutItems: [],
-  checkoutMode: 'cart',
   lastOrder: null,
 }
 
@@ -58,19 +48,7 @@ const els = {
   qty: document.getElementById('qty'),
   qtyMinus: document.getElementById('qty-minus'),
   qtyPlus: document.getElementById('qty-plus'),
-  addToCart: document.getElementById('add-to-cart'),
   buyWhatsapp: document.getElementById('buy-whatsapp'),
-  cartToggle: document.getElementById('cart-toggle'),
-  cartClose: document.getElementById('cart-close'),
-  cartOverlay: document.getElementById('cart-overlay'),
-  cartDrawer: document.getElementById('cart-drawer'),
-  cartItems: document.getElementById('cart-items'),
-  cartEmpty: document.getElementById('cart-empty'),
-  cartFoot: document.getElementById('cart-foot'),
-  cartCount: document.getElementById('cart-count'),
-  cartTotal: document.getElementById('cart-total'),
-  checkoutWa: document.getElementById('checkout-wa'),
-  cartShop: document.getElementById('cart-shop'),
   checkout: document.getElementById('checkout'),
   checkoutForm: document.getElementById('checkout-form'),
   checkoutBack: document.getElementById('checkout-back'),
@@ -94,21 +72,7 @@ const els = {
   galleryImage: document.getElementById('gallery-image'),
   galleryVideo: document.getElementById('gallery-video'),
   demoPlayer: document.getElementById('demo-player'),
-  ytPlayer: document.getElementById('yt-player'),
-  ytFallback: document.getElementById('yt-fallback'),
   galleryThumbs: document.getElementById('gallery-thumbs'),
-}
-
-function loadCart() {
-  try {
-    return JSON.parse(localStorage.getItem('puffpop-cart') || '[]')
-  } catch {
-    return []
-  }
-}
-
-function saveCart() {
-  localStorage.setItem('puffpop-cart', JSON.stringify(state.cart))
 }
 
 function renderColors() {
@@ -166,50 +130,6 @@ function lineTotal(item) {
   return item.unitPrice * item.qty
 }
 
-function cartCount() {
-  return state.cart.reduce((sum, i) => sum + i.qty, 0)
-}
-
-function cartSum() {
-  return state.cart.reduce((sum, i) => sum + lineTotal(i), 0)
-}
-
-function renderCart() {
-  els.cartCount.textContent = String(cartCount())
-  const empty = state.cart.length === 0
-  els.cartEmpty.hidden = !empty
-  els.cartFoot.hidden = empty
-  els.cartItems.hidden = empty
-
-  els.cartItems.innerHTML = state.cart
-    .map(
-      (item, index) => `
-      <article class="cart-item">
-        <h3>${item.name}</h3>
-        <span class="item-price">${money(lineTotal(item))}</span>
-        <p>${item.packLabel} · Qty ${item.qty}<br>Colors: ${item.colorsLabel}</p>
-        <button type="button" class="remove" data-remove="${index}">Remove</button>
-      </article>`
-    )
-    .join('')
-
-  els.cartTotal.textContent = money(cartSum())
-}
-
-function openCart() {
-  els.cartDrawer.classList.add('is-open')
-  els.cartDrawer.setAttribute('aria-hidden', 'false')
-  els.cartOverlay.hidden = false
-  document.body.style.overflow = 'hidden'
-}
-
-function closeCart() {
-  els.cartDrawer.classList.remove('is-open')
-  els.cartDrawer.setAttribute('aria-hidden', 'true')
-  els.cartOverlay.hidden = true
-  document.body.style.overflow = ''
-}
-
 function showToast(message) {
   els.toast.hidden = false
   els.toast.textContent = message
@@ -218,20 +138,6 @@ function showToast(message) {
   showToast._t = setTimeout(() => {
     els.toast.classList.remove('is-show')
   }, 2200)
-}
-
-function addCurrentToCart() {
-  const line = currentLine()
-  const existing = state.cart.find((i) => i.id === line.id)
-  if (existing) {
-    existing.qty += line.qty
-  } else {
-    state.cart.push(line)
-  }
-  saveCart()
-  renderCart()
-  showToast('Added to cart')
-  openCart()
 }
 
 function subtotalOf(items) {
@@ -303,14 +209,10 @@ function showShop() {
   window.scrollTo(0, 0)
 }
 
-function openCheckout(mode) {
-  const items = mode === 'buy' ? [currentLine()] : state.cart.map((item) => ({ ...item }))
-  if (!items.length) return
-  state.checkoutMode = mode
-  state.checkoutItems = items
+function openCheckout() {
+  state.checkoutItems = [currentLine()]
   els.checkoutError.hidden = true
   els.toast.classList.remove('is-show')
-  closeCart()
   els.thanks.hidden = true
   els.checkout.hidden = false
   document.body.classList.add('is-flow')
@@ -412,24 +314,7 @@ els.qty.addEventListener('change', () => {
   els.qty.value = state.qty
 })
 
-els.addToCart.addEventListener('click', addCurrentToCart)
-
-els.buyWhatsapp.addEventListener('click', () => openCheckout('buy'))
-
-els.cartToggle.addEventListener('click', openCart)
-els.cartClose.addEventListener('click', closeCart)
-els.cartOverlay.addEventListener('click', closeCart)
-els.cartShop.addEventListener('click', closeCart)
-
-els.cartItems.addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-remove]')
-  if (!btn) return
-  state.cart.splice(Number(btn.dataset.remove), 1)
-  saveCart()
-  renderCart()
-})
-
-els.checkoutWa.addEventListener('click', () => openCheckout('cart'))
+els.buyWhatsapp.addEventListener('click', openCheckout)
 
 els.checkoutBack.addEventListener('click', showShop)
 
@@ -474,12 +359,6 @@ els.checkoutForm.addEventListener('submit', (event) => {
     area: selectedArea(),
   }
 
-  if (state.checkoutMode === 'cart') {
-    state.cart = []
-    saveCart()
-    renderCart()
-  }
-
   els.checkoutForm.reset()
   renderAreas()
   showThanks(order)
@@ -512,18 +391,10 @@ function showGalleryItem(index) {
       els.demoPlayer.hidden = true
     }
   }
-  const stopYt = () => {
-    if (els.ytPlayer) {
-      els.ytPlayer.src = ''
-      els.ytPlayer.hidden = true
-    }
-    if (els.ytFallback) els.ytFallback.hidden = true
-  }
 
   if (item.type === 'video') {
     els.galleryImage.hidden = true
     els.galleryVideo.hidden = false
-    stopYt()
     if (els.demoPlayer) {
       els.demoPlayer.hidden = false
       els.demoPlayer.src = item.src
@@ -532,24 +403,8 @@ function showGalleryItem(index) {
     return
   }
 
-  if (item.type === 'youtube') {
-    els.galleryImage.hidden = true
-    els.galleryVideo.hidden = false
-    stopLocal()
-    if (els.ytPlayer) {
-      els.ytPlayer.hidden = false
-      els.ytPlayer.src = item.src
-    }
-    if (els.ytFallback) {
-      els.ytFallback.hidden = false
-      els.ytFallback.href = item.watch || item.src
-    }
-    return
-  }
-
   els.galleryVideo.hidden = true
   stopLocal()
-  stopYt()
   els.galleryImage.hidden = false
   els.galleryImage.src = item.src
   els.galleryImage.alt = item.alt
@@ -557,7 +412,7 @@ function showGalleryItem(index) {
 
 function renderGallery() {
   els.galleryThumbs.innerHTML = GALLERY.map((item, index) => {
-    if (item.type === 'video' || item.type === 'youtube') {
+    if (item.type === 'video') {
       const label = item.label || '▶ VIDEO'
       return `<button type="button" class="thumb is-video${index === 0 ? ' is-active' : ''}" data-index="${index}" aria-label="${item.alt}">${label}</button>`
     }
@@ -579,4 +434,3 @@ renderGallery()
 renderColors()
 renderAreas()
 updatePriceUI()
-renderCart()

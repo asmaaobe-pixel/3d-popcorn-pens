@@ -1,5 +1,5 @@
 /** Digits only with country code, no +. Example: 96170123456 */
-export const WHATSAPP_NUMBER = ''
+export const WHATSAPP_NUMBER = '96179460039'
 
 export const BRAND = 'PuffPop'
 
