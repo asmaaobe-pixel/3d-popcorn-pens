@@ -28,8 +28,31 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/style.css" />
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1081769741266056');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
   </head>
   <body>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=1081769741266056&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
     <div class="grain" aria-hidden="true"></div>
 
     <p class="announce">2 sets for $34.99 with free delivery · Cash on delivery</p>
@@ -60,7 +83,22 @@
             height="1024"
           />
         </figure>
-        <a class="btn btn-primary hero-cta" href="#product">Buy it now</a>
+        <div class="hero-packs">
+          <div class="pack-options" id="pack-options" role="radiogroup" aria-label="Pack size">
+            <button type="button" class="pack is-active" data-pack="1" data-price="19.99" data-compare="25">
+              <strong>1 Set</strong>
+              <span>6 pens · <s>$25</s></span>
+              <small>You save $5.01</small>
+              <em>$19.99</em>
+            </button>
+            <button type="button" class="pack" data-pack="2" data-price="34.99" data-compare="39.98" data-free-ship="1">
+              <strong>2 Sets <span class="pack-badge">Best value</span></strong>
+              <span>12 pens · <s>$39.98</s> · Free delivery</span>
+              <small>You save $4.99</small>
+              <em>$34.99</em>
+            </button>
+          </div>
+        </div>
       </section>
 
       <div class="section-break" aria-hidden="true"><span></span></div>
@@ -104,24 +142,6 @@
               <img src="/media/gallery-06.jpg" alt="Craft project made with the pens" />
             </div>
             <p>Puffed on cards, paper, and plastic.</p>
-          </div>
-
-          <div class="buy-block">
-            <label class="field-label" for="pack">Choose pack</label>
-            <div class="pack-options" id="pack-options" role="radiogroup" aria-label="Pack size">
-              <button type="button" class="pack is-active" data-pack="1" data-price="19.99" data-compare="25">
-                <strong>1 Set</strong>
-                <span>6 pens · <s>$25</s></span>
-                <small>You save $5.01</small>
-                <em>$19.99</em>
-              </button>
-              <button type="button" class="pack" data-pack="2" data-price="34.99" data-compare="39.98" data-free-ship="1">
-                <strong>2 Sets <span class="pack-badge">Best value</span></strong>
-                <span>12 pens · <s>$39.98</s> · Free delivery</span>
-                <small>You save $4.99</small>
-                <em>$34.99</em>
-              </button>
-            </div>
           </div>
 
           <div class="buy-actions">

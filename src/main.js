@@ -105,6 +105,11 @@ function lineTotal(item) {
   return item.unitPrice * item.qty
 }
 
+function trackMeta(event, params) {
+  if (typeof window.fbq !== 'function') return
+  window.fbq('track', event, params)
+}
+
 function showToast(message) {
   els.toast.hidden = false
   els.toast.textContent = message
@@ -171,6 +176,15 @@ function openCheckout() {
   els.checkout.hidden = false
   document.body.classList.add('is-flow')
   renderSummary()
+  const subtotal = subtotalOf(state.checkoutItems)
+  trackMeta('InitiateCheckout', {
+    content_ids: [PRODUCT.id],
+    content_name: PRODUCT.name,
+    content_type: 'product',
+    currency: 'USD',
+    num_items: 1,
+    value: subtotal + shippingFor(state.checkoutItems),
+  })
   window.scrollTo(0, 0)
 }
 
@@ -315,6 +329,14 @@ els.checkoutForm.addEventListener('submit', async (event) => {
     const saved = await saveOrder(order)
     els.checkoutForm.reset()
     showThanks(saved)
+    trackMeta('Purchase', {
+      content_ids: [PRODUCT.id],
+      content_name: PRODUCT.name,
+      content_type: 'product',
+      currency: 'USD',
+      num_items: saved.items.reduce((sum, item) => sum + item.qty, 0),
+      value: saved.total,
+    })
     openWhatsApp(buildOrderMessage(saved))
   } catch {
     els.checkoutError.hidden = false
@@ -390,5 +412,33 @@ function renderGallery() {
   showGalleryItem(0)
 }
 
+function placeChatButton() {
+  const packs = document.querySelector('.hero-packs')
+  const chat = document.querySelector('.wa-float')
+  if (!packs || !chat) return
+  if (window.innerWidth >= 768) {
+    chat.style.bottom = ''
+    return
+  }
+  const rect = packs.getBoundingClientRect()
+  const onScreen = rect.bottom > 80 && rect.top < window.innerHeight - 70
+  if (!onScreen) {
+    chat.style.bottom = ''
+    return
+  }
+  const lift = Math.ceil(window.innerHeight - rect.top + 10)
+  chat.style.bottom = `${Math.max(lift, 86)}px`
+}
+
 renderGallery()
 updatePriceUI()
+trackMeta('ViewContent', {
+  content_ids: [PRODUCT.id],
+  content_name: PRODUCT.name,
+  content_type: 'product',
+  currency: 'USD',
+  value: state.price,
+})
+placeChatButton()
+window.addEventListener('scroll', placeChatButton, { passive: true })
+window.addEventListener('resize', placeChatButton)
