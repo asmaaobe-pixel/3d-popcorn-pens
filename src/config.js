@@ -8,10 +8,7 @@ export const SHIPPING = {
   name: 'Express',
   price: 4,
   freeOver: 50,
-  areas: [
-    { id: 'beirut', label: 'Beirut & suburbs', eta: '2–3 days' },
-    { id: 'beyond', label: 'Beyond Beirut', eta: '3–4 days' },
-  ],
+  eta: '2–4 days',
 }
 
 export const PRODUCT = {

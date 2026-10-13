@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>PuffPop orders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/admin-CWnFXu4L.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/orders-DQMCpm3D.js">
+    <link rel="stylesheet" crossorigin href="/assets/orders-CiMaSQqg.css">
+  </head>
+  <body class="admin-page">
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="logo" href="/">PuffPop</a>
+      <p class="admin-kicker">Orders</p>
+    </header>
+    <main class="admin-wrap">
+      <form id="admin-login" class="admin-login">
+        <h1>Shop orders</h1>
+        <p>Orders appear here after a customer taps Complete order.</p>
+        <label>
+          Password
+          <input id="admin-password" type="password" autocomplete="current-password" required />
+        </label>
+        <p class="form-error" id="admin-login-error" hidden></p>
+        <button type="submit" class="btn btn-primary btn-wide">Open orders</button>
+      </form>
+
+      <section id="admin-board" hidden>
+        <div class="admin-bar">
+          <h1>Orders</h1>
+          <button type="button" class="btn btn-ghost" id="admin-refresh">Refresh</button>
+        </div>
+        <p class="form-error" id="admin-error" hidden></p>
+        <div id="admin-list"></div>
+      </section>
+    </main>
+  </body>
+</html>

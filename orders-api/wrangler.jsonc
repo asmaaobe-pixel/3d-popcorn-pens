@@ -1,0 +1,12 @@
+{
+  "name": "puffpop-orders",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-10",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "puffpop-orders",
+      "database_id": "21de89c9-c76d-4dcc-b897-1ed82d7b3ec4"
+    }
+  ]
+}

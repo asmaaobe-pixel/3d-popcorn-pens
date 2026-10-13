@@ -1,4 +1,5 @@
 import { WHATSAPP_NUMBER, BRAND, PRODUCT, SHIPPING } from './config.js'
+import { saveOrder } from './orders.js'
 
 const money = (n) => `$${Number(n).toFixed(2)}`
 
@@ -53,7 +54,7 @@ const els = {
   checkoutForm: document.getElementById('checkout-form'),
   checkoutBack: document.getElementById('checkout-back'),
   checkoutError: document.getElementById('checkout-error'),
-  areaChoices: document.getElementById('area-choices'),
+  checkoutSubmit: document.getElementById('checkout-submit'),
   shipEta: document.getElementById('ship-eta'),
   shipPrice: document.getElementById('ship-price'),
   shipHint: document.getElementById('ship-hint'),
@@ -150,31 +151,10 @@ function shippingFor(items) {
   return subtotal >= SHIPPING.freeOver ? 0 : SHIPPING.price
 }
 
-function selectedArea() {
-  const picked = els.checkoutForm.querySelector('input[name="area"]:checked')
-  return SHIPPING.areas.find((area) => area.id === picked?.value) || SHIPPING.areas[0]
-}
-
-function renderAreas() {
-  els.areaChoices.innerHTML = SHIPPING.areas
-    .map(
-      (area, index) => `
-      <label class="choice">
-        <input type="radio" name="area" value="${area.id}" ${index === 0 ? 'checked' : ''} />
-        <span>
-          <strong>${area.label}</strong>
-          <small>${area.eta}</small>
-        </span>
-      </label>`
-    )
-    .join('')
-}
-
 function renderSummary() {
   const items = state.checkoutItems
   const sub = subtotalOf(items)
   const ship = shippingFor(items)
-  const area = selectedArea()
 
   els.summaryLines.innerHTML = items
     .map(
@@ -193,7 +173,7 @@ function renderSummary() {
   els.sumShip.textContent = ship === 0 ? 'Free' : money(ship)
   els.sumTotal.textContent = money(sub + ship)
   els.shipPrice.textContent = ship === 0 ? 'Free' : money(ship)
-  els.shipEta.textContent = `${area.eta} · ${area.label}`
+  els.shipEta.textContent = SHIPPING.eta
   const twoSet = items.some((item) => item.freeShipping)
   els.shipHint.textContent = twoSet
     ? 'Free delivery on the 2-set.'
@@ -224,6 +204,20 @@ function fieldValue(id) {
   return document.getElementById(id).value.trim()
 }
 
+function phoneDigits(value) {
+  return String(value)
+    .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0))
+    .replace(/[０-９]/g, (digit) => String(digit.charCodeAt(0) - 0xff10))
+    .replace(/\D/g, '')
+}
+
+function markInvalid(ids) {
+  ;['co-phone', 'co-first', 'co-last', 'co-address', 'co-city'].forEach((id) => {
+    document.getElementById(id).classList.toggle('is-invalid', ids.includes(id))
+  })
+}
+
 function buildOrderMessage(order) {
   const lines = [
     `Hi ${BRAND}! Cash on delivery order ${order.id}`,
@@ -244,11 +238,9 @@ function buildOrderMessage(order) {
     `Name: ${order.firstName} ${order.lastName}`,
     `Phone: ${order.phone}`,
   ]
-  if (order.email) lines.push(`Email: ${order.email}`)
   lines.push(
     `Address: ${order.address}${order.apartment ? `, ${order.apartment}` : ''}`,
     `City: ${order.city}, Lebanon`,
-    `Area: ${order.area.label} (${order.area.eta})`,
     '',
     'Please confirm availability and delivery. Thanks!'
   )
@@ -262,11 +254,11 @@ function showThanks(order) {
   document.body.classList.add('is-flow')
   els.thanksTitle.textContent = `Thank you, ${order.firstName}`
   els.thanksLead.textContent =
-    'Your cash-on-delivery order is ready. Send it on WhatsApp so we can confirm delivery.'
+    'Your cash-on-delivery order is saved. Send it on WhatsApp so we can confirm delivery.'
   els.thanksId.textContent = order.id
   els.thanksSummary.innerHTML = `
     <p>${order.items.map((item) => `${item.qty} × ${item.packLabel}`).join('<br>')}</p>
-    <p>${order.address}${order.apartment ? `, ${order.apartment}` : ''}<br>${order.city} · ${order.area.label}</p>
+    <p>${order.address}${order.apartment ? `, ${order.apartment}` : ''}<br>${order.city}</p>
     <p><strong>Total ${money(order.total)}</strong> · Cash on delivery</p>
   `
   window.scrollTo(0, 0)
@@ -318,26 +310,35 @@ els.buyButtons.forEach((button) => button.addEventListener('click', openCheckout
 
 els.checkoutBack.addEventListener('click', showShop)
 
-els.areaChoices.addEventListener('change', renderSummary)
+els.checkoutForm.addEventListener('input', () => {
+  els.checkoutError.hidden = true
+  markInvalid([])
+})
 
-els.checkoutForm.addEventListener('submit', (event) => {
+els.checkoutForm.addEventListener('submit', async (event) => {
   event.preventDefault()
+  await new Promise((resolve) => setTimeout(resolve, 0))
   const phone = fieldValue('co-phone')
-  const email = fieldValue('co-email')
   const firstName = fieldValue('co-first')
   const lastName = fieldValue('co-last')
   const address = fieldValue('co-address')
   const city = fieldValue('co-city')
-  const phoneDigits = phone.replace(/\D/g, '')
+  const digits = phoneDigits(phone)
+  const missing = []
+  if (digits.length < 7) missing.push(['co-phone', 'a phone number'])
+  if (!firstName) missing.push(['co-first', 'your first name'])
+  if (!lastName) missing.push(['co-last', 'your last name'])
+  if (!address) missing.push(['co-address', 'your address'])
+  if (!city) missing.push(['co-city', 'your city'])
 
-  if (!firstName || !lastName || !address || !city || phoneDigits.length < 8) {
+  if (missing.length) {
+    markInvalid(missing.map(([id]) => id))
     els.checkoutError.hidden = false
-    els.checkoutError.textContent = 'Add your name, phone, address, and city to complete the order.'
-    return
-  }
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    els.checkoutError.hidden = false
-    els.checkoutError.textContent = 'Enter a valid email, or leave it blank.'
+    els.checkoutError.textContent =
+      missing.length === 1 && missing[0][0] === 'co-phone'
+        ? 'Enter the full phone number. A Lebanese mobile is fine, like 03 123 456.'
+        : `Add ${missing.map(([, label]) => label).join(', ')} to complete the order.`
+    document.getElementById(missing[0][0]).focus()
     return
   }
 
@@ -350,19 +351,28 @@ els.checkoutForm.addEventListener('submit', (event) => {
     shipping,
     total: subtotal + shipping,
     phone,
-    email,
     firstName,
     lastName,
     address,
     apartment: fieldValue('co-apt'),
     city,
-    area: selectedArea(),
   }
 
-  els.checkoutForm.reset()
-  renderAreas()
-  showThanks(order)
-  openWhatsApp(buildOrderMessage(order))
+  els.checkoutError.hidden = true
+  els.checkoutSubmit.disabled = true
+  els.checkoutSubmit.textContent = 'Saving order...'
+  try {
+    const saved = await saveOrder(order)
+    els.checkoutForm.reset()
+    showThanks(saved)
+    openWhatsApp(buildOrderMessage(saved))
+  } catch {
+    els.checkoutError.hidden = false
+    els.checkoutError.textContent = 'Could not save the order. Check your connection and try again.'
+  } finally {
+    els.checkoutSubmit.disabled = false
+    els.checkoutSubmit.textContent = 'Complete order'
+  }
 })
 
 els.thanksWa.addEventListener('click', () => {
@@ -432,5 +442,4 @@ function renderGallery() {
 
 renderGallery()
 renderColors()
-renderAreas()
 updatePriceUI()
