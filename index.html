@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PuffPop — Bubble Popcorn Drawing Pens | 6 Color Magic Set</title>
+    <meta
+      name="description"
+      content="Draw flat. Heat it up. Watch it puff into 3D popcorn art. PuffPop Bubble Popcorn Drawing Pens — 6 neon colors for kids, cards & crafts. Order on WhatsApp."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <p class="announce">Free delivery on orders over $50 · Cash on delivery</p>
+
+    <header class="site-header">
+      <a class="logo" href="#top">PuffPop</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#product">Shop</a>
+        <a href="#demo">Video</a>
+        <a href="#how">How it works</a>
+        <a href="#why">Why PuffPop</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="cart-btn" id="cart-toggle" aria-label="Open cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6h15l-1.5 9h-12L6 6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M6 6 5 3H2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="9" cy="20" r="1.4" fill="currentColor"/>
+            <circle cx="18" cy="20" r="1.4" fill="currentColor"/>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <a class="header-cta" href="#product">Order now</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="brand-mark">PuffPop</p>
+          <h1>Draw it flat. Heat it. Watch it pop.</h1>
+          <p class="hero-lead">
+            Six neon Bubble Popcorn pens that rise into soft 3D art with a hair dryer —
+            cards, crafts, and kid-approved magic in one set.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#product">Shop the 6-color set</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+        </div>
+      <div class="hero-visual">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <figure class="hero-photo">
+          <img
+            src="/media/gallery-01.jpg"
+            alt="Bubble Popcorn Drawing Pens six-color product set"
+            width="640"
+            height="640"
+          />
+        </figure>
+      </div>
+      </section>
+
+      <section class="strip" aria-label="Highlights">
+        <p>Heat-activated puff</p>
+        <p>6 neon colors</p>
+        <p>Safe for kids</p>
+        <p>Paper · glass · plastic</p>
+        <p>Order on WhatsApp</p>
+      </section>
+
+      <section class="product" id="product">
+        <div class="product-gallery">
+          <div class="gallery-main" id="gallery-main">
+            <img
+              id="gallery-image"
+              src="/media/gallery-01.jpg"
+              alt="Bubble Popcorn Drawing Pens — 6 color set"
+            />
+            <div class="gallery-video" id="gallery-video" hidden>
+              <video
+                id="demo-player"
+                controls
+                playsinline
+                preload="metadata"
+                poster="/media/gallery-05.jpg"
+                src="/media/demo.mp4"
+              ></video>
+              <iframe
+                id="yt-player"
+                title="Popcorn pens YouTube Short"
+                hidden
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+              <a
+                class="yt-fallback"
+                id="yt-fallback"
+                href="https://www.youtube.com/shorts/VEbGwYbeCQc"
+                target="_blank"
+                rel="noopener noreferrer"
+                hidden
+              >
+                ▶ Watch on YouTube
+              </a>
+            </div>
+          </div>
+          <div class="gallery-thumbs" id="gallery-thumbs" role="tablist" aria-label="Product photos and video"></div>
+        </div>
+
+        <div class="product-buy">
+          <p class="eyebrow">Limited drop · In stock</p>
+          <h2>Bubble Popcorn Drawing Pens</h2>
+          <p class="product-sub">DIY 3D Magic Puffy Pens · 6 colors · ~10ml each</p>
+          <div class="price-row">
+            <span class="price-now" id="price-now">$9.99</span>
+            <span class="price-was" id="price-was">$14.99</span>
+            <span class="price-save">Save 33%</span>
+          </div>
+
+          <div class="buy-block">
+            <label class="field-label" for="pack">Choose pack</label>
+            <div class="pack-options" id="pack-options" role="radiogroup" aria-label="Pack size">
+              <button type="button" class="pack is-active" data-pack="1" data-price="9.99" data-compare="14.99">
+                <strong>1 Set</strong>
+                <span>6 pens</span>
+                <em>$9.99</em>
+              </button>
+              <button type="button" class="pack" data-pack="2" data-price="16.99" data-compare="29.98">
+                <strong>2 Sets</strong>
+                <span>12 pens · Best value</span>
+                <em>$16.99</em>
+              </button>
+              <button type="button" class="pack" data-pack="3" data-price="22.99" data-compare="44.97">
+                <strong>3 Sets</strong>
+                <span>18 pens · Gift pack</span>
+                <em>$22.99</em>
+              </button>
+            </div>
+          </div>
+
+          <div class="buy-block">
+            <span class="field-label">Favorite colors <small>(optional)</small></span>
+            <div class="color-picks" id="color-picks"></div>
+            <p class="hint">Every order ships the full 6-color set. Tap favorites so we know what you love.</p>
+          </div>
+
+          <div class="buy-block qty-row">
+            <label class="field-label" for="qty">Quantity</label>
+            <div class="qty">
+              <button type="button" id="qty-minus" aria-label="Decrease">−</button>
+              <input id="qty" type="number" min="1" max="20" value="1" />
+              <button type="button" id="qty-plus" aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <div class="buy-actions">
+            <button type="button" class="btn btn-primary btn-wide" id="add-to-cart">Add to cart</button>
+            <button type="button" class="btn btn-buy btn-wide" id="buy-whatsapp">
+              Buy it now
+            </button>
+          </div>
+          <p class="trust-line">Cash on delivery · Express shipping $4, free over $50</p>
+        </div>
+      </section>
+
+      <section class="demo" id="demo">
+        <div class="demo-copy">
+          <h2>See the puff in action</h2>
+          <p class="section-lead">
+            Product photo reel plus the YouTube Short demo of popcorn / puffy pens.
+          </p>
+          <div class="demo-links">
+            <a class="btn btn-primary" href="#product">Order this set</a>
+            <a
+              class="btn btn-ghost"
+              href="https://www.youtube.com/shorts/VEbGwYbeCQc"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Open YouTube Short</a>
+          </div>
+        </div>
+        <div class="demo-videos">
+          <div class="demo-frame">
+            <video
+              controls
+              playsinline
+              preload="metadata"
+              poster="/media/gallery-05.jpg"
+              src="/media/demo.mp4"
+            >
+              Your browser does not support video playback.
+            </video>
+          </div>
+          <div class="demo-frame demo-frame-yt">
+            <iframe
+              src="https://www.youtube.com/embed/VEbGwYbeCQc?rel=0"
+              title="POPCORN PENS or Puffy Pens for Magical Art"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="how" id="how">
+        <h2>Three steps to popcorn art</h2>
+        <p class="section-lead">No special kit — pens, paper, and heat.</p>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <h3>Draw</h3>
+            <p>Sketch lines, dots, or shapes on paper, cards, or plastic.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <h3>Heat</h3>
+            <p>Blow dry for ~2 minutes, or microwave carefully for 2–3 minutes.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <h3>Pop</h3>
+            <p>Watch the paint rise into soft, bubbly 3D texture — then show it off.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="why" id="why">
+        <div class="why-copy">
+          <h2>Made for mess-free wow moments</h2>
+          <p class="section-lead">
+            The Alibaba-sourced Bubble Popcorn Drawing Pens set — remade as a clean shop
+            experience for parents, teachers, and gift-givers.
+          </p>
+          <ul class="why-list">
+            <li>Magic puff effect when heated</li>
+            <li>6 vivid neon colors in every box</li>
+            <li>Great for greeting cards & classroom crafts</li>
+            <li>Works on paper, glass, plastic & more</li>
+            <li>Kid-friendly formula — no harsh chemicals</li>
+          </ul>
+        </div>
+        <aside class="spec-panel">
+          <h3>Specs</h3>
+          <dl>
+            <div><dt>Colors</dt><dd>6 / set</dd></div>
+            <div><dt>Volume</dt><dd>~10 ml each</dd></div>
+            <div><dt>Size</dt><dd>~10 × 3 × 3 cm</dd></div>
+            <div><dt>Material</dt><dd>Eco argillaceous ink</dd></div>
+            <div><dt>Ages</dt><dd>Kids &amp; craft lovers</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="faq" id="faq">
+        <h2>FAQ</h2>
+        <details open>
+          <summary>How do I order?</summary>
+          <p>Add a pack to your cart and choose Check out, or use Buy it now. Enter your delivery details, then pay cash on delivery. Express shipping is $4, and free on orders of $50 or more.</p>
+        </details>
+        <details>
+          <summary>Do I need a microwave?</summary>
+          <p>No — a hair dryer for about 2 minutes works great. Microwave is optional (2–3 minutes, adult supervision).</p>
+        </details>
+        <details>
+          <summary>Is it safe for children?</summary>
+          <p>Designed as a kids craft product without harmful chemicals. Always supervise heat steps.</p>
+        </details>
+        <details>
+          <summary>What’s in the box?</summary>
+          <p>One set = 6 Bubble Popcorn Drawing Pens in neon colors. Bundle packs multiply the sets.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="logo" href="#top">PuffPop</a>
+      <p>Bubble Popcorn Drawing Pens · Cash on delivery</p>
+      <p class="fine">Inspired by wholesale listing 1601900552729 · Retail storefront for your customers</p>
+    </footer>
+
+    <div class="cart-overlay" id="cart-overlay" hidden></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Shopping cart">
+      <div class="cart-head">
+        <h2>Your cart</h2>
+        <button type="button" class="icon-close" id="cart-close" aria-label="Close cart">×</button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-empty" id="cart-empty">
+        <p>Your cart is empty.</p>
+        <a href="#product" class="btn btn-ghost" id="cart-shop">Shop pens</a>
+      </div>
+      <div class="cart-foot" id="cart-foot" hidden>
+        <div class="cart-total">
+          <span>Estimated total</span>
+          <strong id="cart-total">$0.00</strong>
+        </div>
+        <p class="cart-note">Shipping is calculated at checkout.</p>
+        <button type="button" class="btn btn-primary btn-wide" id="checkout-wa">
+          Check out
+        </button>
+      </div>
+    </aside>
+
+    <section id="checkout" class="checkout" hidden>
+      <div class="checkout-wrap">
+        <form id="checkout-form" class="checkout-form" novalidate>
+          <button type="button" class="text-back" id="checkout-back">← Return to shop</button>
+          <h2>Checkout</h2>
+
+          <fieldset>
+            <legend>Contact</legend>
+            <label>
+              Phone
+              <input id="co-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="03 123 456" />
+            </label>
+            <label>
+              Email <small>(optional)</small>
+              <input id="co-email" name="email" type="email" autocomplete="email" placeholder="you@email.com" />
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Delivery</legend>
+            <div class="field-split">
+              <label>
+                First name
+                <input id="co-first" name="firstName" autocomplete="given-name" required />
+              </label>
+              <label>
+                Last name
+                <input id="co-last" name="lastName" autocomplete="family-name" required />
+              </label>
+            </div>
+            <label>
+              Address
+              <input id="co-address" name="address" autocomplete="address-line1" required placeholder="Street, building" />
+            </label>
+            <label>
+              Apartment <small>(optional)</small>
+              <input id="co-apt" name="apartment" autocomplete="address-line2" placeholder="Floor, landmark" />
+            </label>
+            <label>
+              City
+              <input id="co-city" name="city" autocomplete="address-level2" required />
+            </label>
+            <label>
+              Country
+              <input name="country" value="Lebanon" readonly />
+            </label>
+            <div class="choice-list" id="area-choices"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Shipping method</legend>
+            <label class="choice">
+              <input type="radio" name="shipping" value="express" checked />
+              <span>
+                <strong>Express</strong>
+                <small id="ship-eta"></small>
+              </span>
+              <em id="ship-price">$4.00</em>
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Payment</legend>
+            <label class="choice">
+              <input type="radio" name="payment" value="cod" checked />
+              <span>
+                <strong>Cash on delivery</strong>
+                <small>Pay the courier when your order arrives.</small>
+              </span>
+            </label>
+          </fieldset>
+
+          <p class="form-error" id="checkout-error" hidden></p>
+          <button type="submit" class="btn btn-primary btn-wide" id="checkout-submit">Complete order</button>
+        </form>
+
+        <aside class="order-summary" aria-label="Order summary">
+          <h2>Order summary</h2>
+          <div id="summary-lines"></div>
+          <dl class="summary-totals">
+            <div><dt>Subtotal</dt><dd id="sum-sub">$0.00</dd></div>
+            <div><dt>Shipping</dt><dd id="sum-ship">$4.00</dd></div>
+            <div class="summary-grand"><dt>Total</dt><dd id="sum-total">$0.00</dd></div>
+          </dl>
+          <p class="cart-note" id="ship-hint"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="thanks" class="thanks" hidden>
+      <div class="thanks-card">
+        <p class="brand-mark">Order placed</p>
+        <h2 id="thanks-title">Thank you</h2>
+        <p id="thanks-lead"></p>
+        <p class="thanks-id" id="thanks-id"></p>
+        <div id="thanks-summary"></div>
+        <button type="button" class="btn btn-whatsapp btn-wide" id="thanks-wa">Send order on WhatsApp</button>
+        <button type="button" class="btn btn-ghost btn-wide" id="thanks-shop">Back to shop</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
