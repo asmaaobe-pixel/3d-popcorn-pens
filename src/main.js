@@ -48,7 +48,7 @@ const els = {
   qty: document.getElementById('qty'),
   qtyMinus: document.getElementById('qty-minus'),
   qtyPlus: document.getElementById('qty-plus'),
-  buyWhatsapp: document.getElementById('buy-whatsapp'),
+  buyButtons: document.querySelectorAll('.js-buy-now'),
   checkout: document.getElementById('checkout'),
   checkoutForm: document.getElementById('checkout-form'),
   checkoutBack: document.getElementById('checkout-back'),
@@ -314,7 +314,7 @@ els.qty.addEventListener('change', () => {
   els.qty.value = state.qty
 })
 
-els.buyWhatsapp.addEventListener('click', openCheckout)
+els.buyButtons.forEach((button) => button.addEventListener('click', openCheckout))
 
 els.checkoutBack.addEventListener('click', showShop)
 
