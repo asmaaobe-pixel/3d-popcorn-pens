@@ -353,6 +353,11 @@ main,
   place-items: center;
 }
 
+.gallery-video[hidden],
+.gallery-main > img[hidden] {
+  display: none !important;
+}
+
 .gallery-video video,
 .gallery-video iframe,
 .demo-frame video,
