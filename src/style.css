@@ -264,6 +264,10 @@ main,
   margin-bottom: 0;
 }
 
+.product-buy .pack-options {
+  margin: 1rem 0 1.15rem;
+}
+
 .section-break {
   display: flex;
   align-items: center;

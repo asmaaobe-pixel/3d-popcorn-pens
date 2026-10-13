@@ -39,7 +39,7 @@ const state = {
 }
 
 const els = {
-  packOptions: document.getElementById('pack-options'),
+  packOptions: document.querySelectorAll('.js-pack-options'),
   priceNow: document.getElementById('price-now'),
   priceWas: document.getElementById('price-was'),
   priceSave: document.getElementById('price-save'),
@@ -73,7 +73,7 @@ const els = {
 }
 
 function activePack() {
-  return els.packOptions.querySelector('.pack.is-active')
+  return document.querySelector('.js-pack-options .pack.is-active')
 }
 
 function updatePriceUI() {
@@ -260,14 +260,19 @@ function openWhatsApp(message) {
 }
 
 /* Events */
-els.packOptions.addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-pack]')
-  if (!btn) return
-  state.pack = Number(btn.dataset.pack)
-  state.price = Number(btn.dataset.price)
-  state.compare = Number(btn.dataset.compare || btn.dataset.price)
-  els.packOptions.querySelectorAll('.pack').forEach((el) => el.classList.toggle('is-active', el === btn))
-  updatePriceUI()
+els.packOptions.forEach((group) => {
+  group.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-pack]')
+    if (!btn) return
+    state.pack = Number(btn.dataset.pack)
+    state.price = Number(btn.dataset.price)
+    state.compare = Number(btn.dataset.compare || btn.dataset.price)
+    document.querySelectorAll('.js-pack-options .pack').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.pack === btn.dataset.pack)
+    })
+    updatePriceUI()
+    if (btn.closest('.hero-packs')) openCheckout()
+  })
 })
 
 els.buyButtons.forEach((button) => button.addEventListener('click', openCheckout))
