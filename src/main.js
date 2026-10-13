@@ -80,10 +80,13 @@ function updatePriceUI() {
   const save = Math.max(0, state.compare - state.price)
   const free = activePack()?.dataset.freeShip === '1'
   els.priceNow.textContent = money(state.price)
+  els.priceWas.hidden = save <= 0
   els.priceWas.textContent = money(state.compare)
-  els.priceSave.textContent = free ? `You save ${money(save)} · Free delivery` : `You save ${money(save)}`
+  els.priceSave.hidden = save <= 0 && !free
+  els.priceSave.textContent =
+    save > 0 ? (free ? `You save ${money(save)} · Free delivery` : `You save ${money(save)}`) : 'Free delivery'
   els.stickyPrice.textContent = money(state.price)
-  els.stickyNote.textContent = free ? '2 sets · free delivery' : 'Delivery $4 · free from $50'
+  els.stickyNote.textContent = free ? '2 sets · free delivery' : 'Delivery $4'
 }
 
 function currentLine() {
@@ -125,9 +128,8 @@ function subtotalOf(items) {
 }
 
 function shippingFor(items) {
-  const subtotal = subtotalOf(items)
   if (items.some((item) => item.freeShipping)) return 0
-  return subtotal >= SHIPPING.freeOver ? 0 : SHIPPING.price
+  return SHIPPING.price
 }
 
 function renderSummary() {
@@ -156,9 +158,7 @@ function renderSummary() {
   const twoSet = items.some((item) => item.freeShipping)
   els.shipHint.textContent = twoSet
     ? 'Free delivery on the 2-set.'
-    : ship === 0
-      ? `Free Express delivery on orders of ${money(SHIPPING.freeOver)} or more.`
-      : `Express is ${money(SHIPPING.price)}. The 2-set ships free, and orders of ${money(SHIPPING.freeOver)} or more ship free.`
+    : `Express is ${money(SHIPPING.price)}. The 2-set ships free.`
 }
 
 function showShop() {
@@ -265,7 +265,7 @@ els.packOptions.addEventListener('click', (e) => {
   if (!btn) return
   state.pack = Number(btn.dataset.pack)
   state.price = Number(btn.dataset.price)
-  state.compare = Number(btn.dataset.compare)
+  state.compare = Number(btn.dataset.compare || btn.dataset.price)
   els.packOptions.querySelectorAll('.pack').forEach((el) => el.classList.toggle('is-active', el === btn))
   updatePriceUI()
 })

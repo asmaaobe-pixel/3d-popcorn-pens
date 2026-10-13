@@ -3,11 +3,10 @@ export const WHATSAPP_NUMBER = '96179460039'
 
 export const BRAND = 'PuffPop'
 
-/** Same shipping rule as the reference shop: Express $4, free from $50. */
+/** Express is $4. The 2-set ships free. */
 export const SHIPPING = {
   name: 'Express',
   price: 4,
-  freeOver: 50,
   eta: '2–4 days',
 }
 
