@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PuffPop — Bubble Popcorn Drawing Pens | 6 Color Magic Set</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta
       name="description"
       content="Draw flat. Heat it up. Watch it puff into 3D popcorn art. PuffPop Bubble Popcorn Drawing Pens — 6 neon colors for kids, cards & crafts. Order on WhatsApp."
@@ -31,35 +32,35 @@
   <body>
     <div class="grain" aria-hidden="true"></div>
 
-    <p class="announce">2 sets for $39.99 with free delivery · Cash on delivery</p>
+    <p class="announce">2 sets for $34.99 with free delivery · Cash on delivery</p>
 
     <header class="site-header">
       <a class="logo" href="#top">PuffPop</a>
       <nav class="nav" aria-label="Primary">
         <a href="#product">Shop</a>
-        <a href="#demo">Video</a>
         <a href="#how">How it works</a>
-        <a href="#why">Why PuffPop</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="header-actions">
-        <a class="header-cta" href="#product">Order now</a>
+        <a class="header-cta" href="#product">Buy it now</a>
       </div>
     </header>
 
     <main id="top">
-      <section class="mobile-intro" aria-label="3D Magic Popcorn Pen">
-        <div class="mobile-intro-frame">
+      <section class="hero" aria-label="PuffPop">
+        <div class="hero-copy">
+          <h1>Draw flat. Heat it up. Watch it puff into 3D popcorn art.</h1>
+          <p class="hero-sub">Six neon pens and a hair dryer. Soft 3D art in about two minutes.</p>
+        </div>
+        <figure class="hero-visual">
           <img
             src="/media/showcase.png"
             alt="3D Magic Popcorn Pen set: six neon pens and the 6-pack box."
             width="1024"
             height="1024"
           />
-          <button type="button" class="btn btn-primary mobile-intro-buy js-buy-now">
-            Buy now
-          </button>
-        </div>
+        </figure>
+        <a class="btn btn-primary hero-cta" href="#product">Buy it now</a>
       </section>
 
       <div class="section-break" aria-hidden="true"><span></span></div>
@@ -87,13 +88,22 @@
         </div>
 
         <div class="product-buy">
-          <p class="eyebrow">Limited drop · In stock</p>
-          <h1>Bubble Popcorn Drawing Pens</h1>
+          <h2>Bubble Popcorn Drawing Pens</h2>
           <p class="product-sub">DIY 3D Magic Puffy Pens · 6 colors · ~10ml each</p>
           <div class="price-row">
             <span class="price-now" id="price-now">$19.99</span>
             <span class="price-was" id="price-was">$25.00</span>
-            <span class="price-save" id="price-save">Save 20%</span>
+            <span class="price-save" id="price-save">You save $5.01</span>
+          </div>
+          <p class="meta-note">Delivery $4 · free from $50 · the 2-set ships free</p>
+          <p class="meta-note">Ages 6+, adult supervision for heat</p>
+          <div class="proof">
+            <div class="proof-photos">
+              <img src="/media/gallery-05.jpg" alt="Puffed popcorn art" />
+              <img src="/media/gallery-18.jpg" alt="Greeting card made with the pens" />
+              <img src="/media/gallery-06.jpg" alt="Craft project made with the pens" />
+            </div>
+            <p>Puffed on cards, paper, and plastic.</p>
           </div>
 
           <div class="buy-block">
@@ -101,40 +111,25 @@
             <div class="pack-options" id="pack-options" role="radiogroup" aria-label="Pack size">
               <button type="button" class="pack is-active" data-pack="1" data-price="19.99" data-compare="25">
                 <strong>1 Set</strong>
-                <span>6 pens · <s>$25</s> $19.99</span>
+                <span>6 pens · <s>$25</s></span>
+                <small>You save $5.01</small>
                 <em>$19.99</em>
               </button>
-              <button type="button" class="pack" data-pack="2" data-price="39.99" data-compare="50" data-free-ship="1">
-                <strong>2 Sets</strong>
-                <span>12 pens · <s>$25</s> $19.99 each · Free delivery</span>
-                <em>$39.99</em>
+              <button type="button" class="pack" data-pack="2" data-price="34.99" data-compare="39.98" data-free-ship="1">
+                <strong>2 Sets <span class="pack-badge">Best value</span></strong>
+                <span>12 pens · <s>$39.98</s> · Free delivery</span>
+                <small>You save $4.99</small>
+                <em>$34.99</em>
               </button>
             </div>
           </div>
 
-          <div class="buy-block">
-            <span class="field-label">Favorite colors <small>(optional)</small></span>
-            <div class="color-picks" id="color-picks"></div>
-            <p class="hint">Every order ships the full 6-color set. Tap favorites so we know what you love.</p>
+          <div class="buy-actions">
+            <button type="button" class="btn btn-primary btn-wide js-buy-now" id="buy-whatsapp">
+              Buy it now
+            </button>
           </div>
-
-          <div class="purchase-bar">
-            <div class="buy-block qty-row">
-              <label class="field-label" for="qty">Quantity</label>
-              <div class="qty">
-                <button type="button" id="qty-minus" aria-label="Decrease">−</button>
-                <input id="qty" type="number" min="1" max="20" value="1" />
-                <button type="button" id="qty-plus" aria-label="Increase">+</button>
-              </div>
-            </div>
-
-            <div class="buy-actions">
-              <button type="button" class="btn btn-primary btn-wide js-buy-now" id="buy-whatsapp">
-                Buy it now
-              </button>
-            </div>
-          </div>
-          <p class="trust-line">Cash on delivery · 2 sets $39.99 with free delivery</p>
+          <p class="order-flow">Tap → confirm on WhatsApp → pay when it arrives</p>
         </div>
       </section>
 
@@ -173,7 +168,7 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 16.5 4 20l3.8-1.2A8 8 0 1 0 6 16.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
             </span>
             <strong>Order on WhatsApp</strong>
-            <p>Buy it now, then send the order in one tap.</p>
+            <p>Tap Buy it now, then confirm on WhatsApp.</p>
           </li>
         </ul>
       </section>
@@ -185,7 +180,7 @@
             Watch the pens puff into 3D popcorn art.
           </p>
           <div class="demo-links">
-            <a class="btn btn-primary" href="#product">Order this set</a>
+            <a class="btn btn-primary" href="#product">Buy it now</a>
           </div>
         </div>
         <div class="demo-videos">
@@ -240,8 +235,7 @@
         <div class="why-copy">
           <h2>Made for mess-free wow moments</h2>
           <p class="section-lead">
-            The Alibaba-sourced Bubble Popcorn Drawing Pens set — remade as a clean shop
-            experience for parents, teachers, and gift-givers.
+            Six neon pens for parents, teachers, and anyone who wants a quick craft wow.
           </p>
           <ul class="why-list">
             <li>Magic puff effect when heated</li>
@@ -257,8 +251,8 @@
             <div><dt>Colors</dt><dd>6 / set</dd></div>
             <div><dt>Volume</dt><dd>~10 ml each</dd></div>
             <div><dt>Size</dt><dd>~10 × 3 × 3 cm</dd></div>
-            <div><dt>Material</dt><dd>Eco argillaceous ink</dd></div>
-            <div><dt>Ages</dt><dd>Kids &amp; craft lovers</dd></div>
+            <div><dt>Material</dt><dd>Non-toxic puff ink</dd></div>
+            <div><dt>Ages</dt><dd>Ages 6+</dd></div>
           </dl>
         </aside>
       </section>
@@ -267,7 +261,7 @@
         <h2>FAQ</h2>
         <details open>
           <summary>How do I order?</summary>
-          <p>Choose a pack and tap Buy it now. The 2-set is $39.99 and includes free delivery. Other orders use Express shipping at $4, free from $50. Pay cash on delivery.</p>
+          <p>Choose a pack and tap Buy it now. The 2-set is $34.99 and includes free delivery. Other orders use Express shipping at $4, free from $50. Pay cash on delivery.</p>
         </details>
         <details>
           <summary>Do I need a microwave?</summary>
@@ -289,6 +283,14 @@
       <p>Bubble Popcorn Drawing Pens · Cash on delivery</p>
       <p class="fine"><a href="/admin.html">Orders</a></p>
     </footer>
+
+    <div class="sticky-buy">
+      <div>
+        <strong id="sticky-price">$19.99</strong>
+        <span id="sticky-note">Delivery $4 · free from $50</span>
+      </div>
+      <button type="button" class="btn btn-primary js-buy-now">Buy it now</button>
+    </div>
 
     <a
       class="wa-float"

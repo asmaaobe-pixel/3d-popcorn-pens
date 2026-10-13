@@ -3,7 +3,7 @@ import { saveOrder } from './orders.js'
 
 const money = (n) => `$${Number(n).toFixed(2)}`
 
-/** Real product photos (same Bubble Popcorn Drawing Pens product as Alibaba listing) */
+/** Real product photos of the Bubble Popcorn Drawing Pens set */
 const GALLERY = [
   { type: 'image', src: '/media/gallery-01.jpg', alt: 'Product pack front' },
   { type: 'image', src: '/media/gallery-02.jpg', alt: 'Pens close-up' },
@@ -33,22 +33,18 @@ const state = {
   pack: 1,
   price: PRODUCT.price,
   compare: PRODUCT.compareAt,
-  qty: 1,
-  favorites: new Set(),
   galleryIndex: 0,
   checkoutItems: [],
   lastOrder: null,
 }
 
 const els = {
-  colorPicks: document.getElementById('color-picks'),
   packOptions: document.getElementById('pack-options'),
   priceNow: document.getElementById('price-now'),
   priceWas: document.getElementById('price-was'),
   priceSave: document.getElementById('price-save'),
-  qty: document.getElementById('qty'),
-  qtyMinus: document.getElementById('qty-minus'),
-  qtyPlus: document.getElementById('qty-plus'),
+  stickyPrice: document.getElementById('sticky-price'),
+  stickyNote: document.getElementById('sticky-note'),
   buyButtons: document.querySelectorAll('.js-buy-now'),
   checkout: document.getElementById('checkout'),
   checkoutForm: document.getElementById('checkout-form'),
@@ -76,54 +72,32 @@ const els = {
   galleryThumbs: document.getElementById('gallery-thumbs'),
 }
 
-function renderColors() {
-  els.colorPicks.innerHTML = PRODUCT.colors
-    .map(
-      (c) => `
-      <button
-        type="button"
-        class="swatch${state.favorites.has(c.id) ? ' is-active' : ''}"
-        style="background:${c.hex}"
-        data-color="${c.id}"
-        title="${c.name}"
-        aria-label="${c.name}"
-        aria-pressed="${state.favorites.has(c.id)}"
-      ></button>`
-    )
-    .join('')
-}
-
 function activePack() {
   return els.packOptions.querySelector('.pack.is-active')
 }
 
 function updatePriceUI() {
+  const save = Math.max(0, state.compare - state.price)
+  const free = activePack()?.dataset.freeShip === '1'
   els.priceNow.textContent = money(state.price)
   els.priceWas.textContent = money(state.compare)
-  const save = state.compare > state.price ? Math.round((1 - state.price / state.compare) * 100) : 0
-  const free = activePack()?.dataset.freeShip === '1'
-  els.priceSave.textContent = free ? `Save ${save}% · Free delivery` : `Save ${save}%`
-}
-
-function selectedColorNames() {
-  return PRODUCT.colors
-    .filter((c) => state.favorites.has(c.id))
-    .map((c) => c.name)
+  els.priceSave.textContent = free ? `You save ${money(save)} · Free delivery` : `You save ${money(save)}`
+  els.stickyPrice.textContent = money(state.price)
+  els.stickyNote.textContent = free ? '2 sets · free delivery' : 'Delivery $4 · free from $50'
 }
 
 function currentLine() {
-  const colors = selectedColorNames()
   const freeShipping = activePack()?.dataset.freeShip === '1'
   return {
-    id: `${PRODUCT.id}-pack${state.pack}-${[...state.favorites].sort().join('-') || 'all'}`,
+    id: `${PRODUCT.id}-pack${state.pack}`,
     name: PRODUCT.name,
     pack: state.pack,
     packLabel: `${state.pack} set${state.pack > 1 ? 's' : ''} (${state.pack * PRODUCT.packSize} pens)`,
     unitPrice: state.price,
-    qty: state.qty,
+    qty: 1,
     freeShipping,
-    colors,
-    colorsLabel: colors.length ? colors.join(', ') : 'Full 6-color set',
+    colors: [],
+    colorsLabel: 'Full 6-color set',
   }
 }
 
@@ -272,15 +246,6 @@ function openWhatsApp(message) {
 }
 
 /* Events */
-els.colorPicks.addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-color]')
-  if (!btn) return
-  const id = btn.dataset.color
-  if (state.favorites.has(id)) state.favorites.delete(id)
-  else state.favorites.add(id)
-  renderColors()
-})
-
 els.packOptions.addEventListener('click', (e) => {
   const btn = e.target.closest('[data-pack]')
   if (!btn) return
@@ -289,21 +254,6 @@ els.packOptions.addEventListener('click', (e) => {
   state.compare = Number(btn.dataset.compare)
   els.packOptions.querySelectorAll('.pack').forEach((el) => el.classList.toggle('is-active', el === btn))
   updatePriceUI()
-})
-
-els.qtyMinus.addEventListener('click', () => {
-  state.qty = Math.max(1, state.qty - 1)
-  els.qty.value = state.qty
-})
-
-els.qtyPlus.addEventListener('click', () => {
-  state.qty = Math.min(20, state.qty + 1)
-  els.qty.value = state.qty
-})
-
-els.qty.addEventListener('change', () => {
-  state.qty = Math.min(20, Math.max(1, Number(els.qty.value) || 1))
-  els.qty.value = state.qty
 })
 
 els.buyButtons.forEach((button) => button.addEventListener('click', openCheckout))
@@ -441,5 +391,4 @@ function renderGallery() {
 }
 
 renderGallery()
-renderColors()
 updatePriceUI()
